@@ -1,55 +1,177 @@
-# Debate Crew
+# CrewAI Engineering Team
 
-Welcome to the Debate Crew project, powered by [crewAI](https://crewai.com). This template is designed to help you set up a multi-agent AI system with ease, leveraging the powerful and flexible framework provided by crewAI. Our goal is to enable your agents to collaborate effectively on complex tasks, maximizing their collective intelligence and capabilities.
+Welcome to the CrewAI Engineering Team project! This is a comprehensive AI-powered software development platform that uses multiple specialized agents to generate complete applications based on user requirements. The system includes a modern React GUI for easy interaction and project management.
+
+## Features
+
+- **Multi-Agent Architecture**: 5 specialized AI agents work together:
+  - **Architect**: Designs system architecture and technical specifications
+  - **Developer**: Implements application code following best practices
+  - **QA Engineer**: Creates comprehensive test plans and test cases
+  - **Tester**: Executes tests and validates functionality
+  - **Code Validator**: Performs code reviews and ensures quality standards
+
+- **React GUI**: Modern, intuitive web interface for:
+  - Inputting project requirements
+  - Real-time monitoring of agent interactions
+  - Viewing progress and results
+  - Downloading generated projects
+  - Pushing projects directly to GitHub
+
+- **Project Generation**: Creates complete, runnable applications with:
+  - Source code
+  - Configuration files
+  - Documentation
+  - Test suites
+
+- **GitHub Integration**: Direct push to GitHub repositories with customizable settings
 
 ## Installation
 
-Ensure you have Python >=3.10 <3.14 installed on your system. This project uses [UV](https://docs.astral.sh/uv/) for dependency management and package handling, offering a seamless setup and execution experience.
+### Prerequisites
+- Python >=3.10 <3.14
+- Node.js >=16.0.0
+- Git
 
-First, if you haven't already, install uv:
+### Backend Setup
 
+1. Install UV for dependency management:
 ```bash
 pip install uv
 ```
 
-Next, navigate to your project directory and install the dependencies:
-
-(Optional) Lock the dependencies and install them by using the CLI command:
+2. Install Python dependencies:
 ```bash
-crewai install
-```
-### Customizing
-
-**Add your `OPENAI_API_KEY` into the `.env` file**
-
-- Modify `src/debate/config/agents.yaml` to define your agents
-- Modify `src/debate/config/tasks.yaml` to define your tasks
-- Modify `src/debate/crew.py` to add your own logic, tools and specific args
-- Modify `src/debate/main.py` to add custom inputs for your agents and tasks
-
-## Running the Project
-
-To kickstart your crew of AI agents and begin task execution, run this from the root folder of your project:
-
-```bash
-$ crewai run
+uv sync
 ```
 
-This command initializes the debate Crew, assembling the agents and assigning them tasks as defined in your configuration.
+3. Set up environment variables in `.env`:
+```bash
+GOOGLE_API_KEY=your_google_api_key_here
+OPENAI_API_KEY=your_openai_api_key_here
+```
 
-This example, unmodified, will run the create a `report.md` file with the output of a research on LLMs in the root folder.
+### Frontend Setup
 
-## Understanding Your Crew
+1. Install Node.js dependencies:
+```bash
+cd frontend
+npm install
+```
 
-The debate Crew is composed of multiple AI agents, each with unique roles, goals, and tools. These agents collaborate on a series of tasks, defined in `config/tasks.yaml`, leveraging their collective skills to achieve complex objectives. The `config/agents.yaml` file outlines the capabilities and configurations of each agent in your crew.
+2. Build the React application:
+```bash
+npm run build
+```
+
+## Running the Application
+
+### Development Mode
+
+1. Start the backend server:
+```bash
+uv run start_server
+```
+
+2. In another terminal, start the frontend development server:
+```bash
+cd frontend
+npm start
+```
+
+The application will be available at `http://localhost:3000` with the backend API at `http://localhost:8000`.
+
+### Production Mode
+
+1. Build the frontend:
+```bash
+cd frontend
+npm run build
+```
+
+2. Start the combined server:
+```bash
+uv run start_server
+```
+
+The application will be available at `http://localhost:8000`.
+
+## Usage
+
+1. **Enter Requirements**: Describe your application requirements in the text area
+2. **Generate Project**: Click "Generate Project" to start the engineering team
+3. **Monitor Progress**: Watch real-time agent interactions and progress updates
+4. **Download Project**: Download the complete generated project as a ZIP file
+5. **Push to GitHub**: Optionally push the project to a new GitHub repository
+
+## Project Structure
+
+```
+crewai-engineering-team/
+├── src/
+│   └── engineering_team/
+│       ├── __init__.py
+│       ├── api.py              # FastAPI backend server
+│       ├── crew.py             # CrewAI engineering team definition
+│       ├── main.py             # CLI interface
+│       └── config/
+│           ├── agents.yaml     # Agent configurations
+│           └── tasks.yaml      # Task definitions
+├── frontend/
+│   ├── public/
+│   ├── src/
+│   │   ├── App.js
+│   │   ├── index.js
+│   │   └── components/
+│   │       ├── AgentInteractions.js
+│   │       ├── ProjectDownloader.js
+│   │       └── GitHubPusher.js
+│   └── package.json
+├── output/                    # Generated projects directory
+├── pyproject.toml
+├── README.md
+└── .env
+```
+
+## Configuration
+
+### Agents Configuration
+Modify `src/engineering_team/config/agents.yaml` to customize agent behaviors, models, and roles.
+
+### Tasks Configuration
+Modify `src/engineering_team/config/tasks.yaml` to adjust the engineering workflow and task definitions.
+
+### Environment Variables
+- `GOOGLE_API_KEY`: Your Google AI API key for Gemini models (required)
+- `OPENAI_API_KEY`: Your OpenAI API key (required - CrewAI needs this for internal functionality even when using Gemini)
+- `OLLAMA_BASE_URL`: Base URL for Ollama (if using local models)
+- `GITHUB_TOKEN`: GitHub token for automatic repository creation (optional)
+
+## CLI Commands
+
+- `uv run engineering_team`: Run the engineering team directly
+- `uv run start_server`: Start the web server
+- `uv run train`: Train the crew
+- `uv run test`: Test the crew
+
+## API Endpoints
+
+- `GET /`: Serve the React application
+- `POST /api/generate`: Start project generation
+- `GET /api/progress`: Get real-time progress updates
+- `GET /api/download/{project_id}`: Download generated project
+- `POST /api/github/push`: Push project to GitHub
 
 ## Support
 
-For support, questions, or feedback regarding the Debate Crew or crewAI.
-- Visit our [documentation](https://docs.crewai.com)
-- Reach out to us through our [GitHub repository](https://github.com/joaomdmoura/crewai)
-- [Join our Discord](https://discord.com/invite/X4JWnZnxPb)
-- [Chat with our docs](https://chatg.pt/DWjSBZn)
+For support, questions, or feedback:
+- Visit the [crewAI documentation](https://docs.crewai.com)
+- Check out the [crewAI GitHub repository](https://github.com/joaomdmoura/crewai)
+- Join our [Discord community](https://discord.com/invite/X4JWnZnxPb)
 
-Let's create wonders together with the power and simplicity of crewAI.
-# DebaterCrewAI
+## License
+
+This project is built on crewAI. Please refer to crewAI's licensing terms.
+
+Let's build amazing applications together with the power of AI-driven software engineering!
+# CrewAIEngeeringTeamVer2
